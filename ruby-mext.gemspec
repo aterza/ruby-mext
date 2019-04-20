@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ruby/mext/version'
+require 'version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'ruby-mext'
-  spec.version       = Ruby::Mext::VERSION
+  spec.version       = Mext::VERSION
   spec.authors       = ['Nicola Bernardini']
   spec.email         = ['nicb@sme-ccppd.org']
 
