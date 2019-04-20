@@ -50,8 +50,8 @@ describe 'Numeric::pitch_fork' do
     #
     @random_pitches.each do
       |rp|
-      expect(rp.freq.class.pitch_fork).to(eq(@new_pitch_fork), rp.freq.to_s)
-      expect(rp.midi.class.pitch_fork).to(eq(@new_pitch_fork), rp.midi.to_s)
+      expect(rp.from.class.pitch_fork).to(eq(@new_pitch_fork), rp.from.to_s)
+      expect(rp.to.class.pitch_fork).to(eq(@new_pitch_fork), rp.to.to_s)
     end
   end
 

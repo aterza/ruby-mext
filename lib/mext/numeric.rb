@@ -5,7 +5,9 @@ module Mext
 end
 
 %w(
+  exceptions
   pitch_fork
   mtof
   ftom
+  ampdb
 ).each { |f| require File.join(Mext::NUMERIC_PATH, f) }

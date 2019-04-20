@@ -19,7 +19,7 @@ describe 'Numeric::ftom' do
     Numeric.reset_pitch_fork
     @random_pitches.each do
       |rp|
-      expect(rp.freq.ftom).to(be_within(@eps).of(rp.midi), "#{rp.freq.ftom} != #{rp.midi}")
+      expect(rp.from.ftom).to(be_within(@eps).of(rp.to), "#{rp.from.ftom} != #{rp.to}")
     end
   end
 

@@ -5,7 +5,6 @@ class Numeric
   #
   # interprets its receiver as a frequency and returns its corresponing MIDI note
   #
-  class NegativeNumeric < StandardError; end
 
   def ftom
     raise NegativeNumeric if self < 0.0
@@ -13,4 +12,3 @@ class Numeric
   end
 
 end
-

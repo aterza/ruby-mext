@@ -20,7 +20,7 @@ describe 'Numeric::mtof' do
     Numeric.reset_pitch_fork
     @random_pitches.each do
       |rp|
-      expect(rp.midi.mtof).to(be_within(@eps).of(rp.freq), "#{rp.midi.mtof} != #{rp.freq}")
+      expect(rp.to.mtof).to(be_within(@eps).of(rp.from), "#{rp.to.mtof} != #{rp.from}")
     end
   end
 

@@ -1,8 +1,8 @@
 class NumericTester
-  attr_reader :freq, :midi
+  attr_reader :from, :to
 
-  def initialize(f, m)
-    @freq = f
-    @midi = m
+  def initialize(f, t)
+    @from = f
+    @to = t
   end
 end
