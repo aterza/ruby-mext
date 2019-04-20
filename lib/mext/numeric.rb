@@ -7,4 +7,5 @@ end
 %w(
   pitch_fork
   mtof
+  ftom
 ).each { |f| require File.join(Mext::NUMERIC_PATH, f) }

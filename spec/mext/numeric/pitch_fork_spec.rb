@@ -1,7 +1,7 @@
 require "spec_helper"
 require File.expand_path(File.join('..', 'numeric_tester'), __FILE__)
 
-describe Numeric do
+describe 'Numeric::pitch_fork' do
 
   before :example do
     @eps = 1e-6
