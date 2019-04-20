@@ -1,6 +1,7 @@
 # Ruby::Mext music extensions for the ruby language (native ruby code)
 
 [![Build Status](https://travis-ci.org/nicb/ruby-mext.svg?branch=master)](https://travis-ci.org/nicb/ruby-mext)
+[![Maintainability](https://api.codeclimate.com/v1/badges/53686892aa9ee6a30ebb/maintainability)](https://codeclimate.com/github/nicb/ruby-mext/maintainability)
 
 These are extensions of usual idiomatic `ruby` objects (i.e. `Numeric`,
 `Array`, etc.) that make `ruby` a comfortable language for musicians.
