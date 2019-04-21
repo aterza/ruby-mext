@@ -6,4 +6,5 @@ end
 
 %w(
   numeric
+  math
 ).each { |f| require File.join(Mext::PATH, f) }
