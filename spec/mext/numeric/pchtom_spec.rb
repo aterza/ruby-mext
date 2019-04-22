@@ -8,9 +8,12 @@ describe 'Numeric::pchtom' do
     @dataset =
     [
       NumericTester.new(8.00, 60.0),
-      NumericTester.new(0.001, -35.9),
       NumericTester.new(8.09, 69.0),
       NumericTester.new(8.09025, 69.025),
+      NumericTester.new(0.00, -36.0),
+      NumericTester.new(-0.01, -37.0),
+      NumericTester.new(-1.00, -48.0),
+      NumericTester.new(-1.04, -52.0),
     ]
   end
 

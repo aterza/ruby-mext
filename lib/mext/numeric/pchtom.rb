@@ -7,15 +7,18 @@ class Numeric
   #
   #:nodoc:
   MIDI_MIDDLE_C = 60
+  PITCH_MIDDLE_C = 8.0
+  CHROMATIC_NOTES_PER_OCTAVE = 12.0
 
   def pchtom
     p_octave = self.to_i
     p_note = (self - p_octave) * 100
+    ref = self < 0.0 ? -CHROMATIC_NOTES_PER_OCTAVE : CHROMATIC_NOTES_PER_OCTAVE
 
-    p_octave += (p_note / 12.0).to_i # cater for octave wrapping
-    p_note   = (p_note % 12.0);      # reduce note in a 0-11 space
+    p_octave += (p_note / CHROMATIC_NOTES_PER_OCTAVE).to_i # cater for octave wrapping
+    p_note   = (p_note % ref);                             # reduce note in a 0-11 space (keeping track of sign)
 
-    m_octave = ((p_octave - 8.0)*12) + 60; # find the appropriate midi octave
+    m_octave = ((p_octave - PITCH_MIDDLE_C)*CHROMATIC_NOTES_PER_OCTAVE) + MIDI_MIDDLE_C; # find the appropriate midi octave
 
     m_octave + p_note
   end
