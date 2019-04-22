@@ -14,4 +14,5 @@ end
   pchtom
   mtopch
   cpspch
+  pchcps
 ).each { |f| require File.join(Mext::NUMERIC_PATH, f) }
