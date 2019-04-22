@@ -15,4 +15,5 @@ end
   mtopch
   cpspch
   pchcps
+  rrand
 ).each { |f| require File.join(Mext::NUMERIC_PATH, f) }
