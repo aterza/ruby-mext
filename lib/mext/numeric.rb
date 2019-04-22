@@ -11,4 +11,5 @@ end
   ftom
   ampdb
   dbamp
+  pchtom
 ).each { |f| require File.join(Mext::NUMERIC_PATH, f) }
