@@ -45,6 +45,16 @@ module Math
       [resx, resy]
     end
 
+    #:doc:
+    #
+    # +label+
+    #
+    # Returns a label which can be used in plots
+    #
+    def label
+      ''
+    end
+
   private
 
     def setup

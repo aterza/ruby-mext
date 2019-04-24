@@ -47,6 +47,10 @@ module Math
       (CMath::exp(self.a*x + self.b) + self.c).abs   # we want a real number result, no complex please
     end
 
+    def label
+      "tau: #{self.tau}"
+    end
+
   private
 
     def setup

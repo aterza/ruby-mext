@@ -38,6 +38,10 @@ module Math
       (self.a*x) + self.b
     end
 
+    def label
+      "a: #{self.a}\nb: #{self.b}"
+    end
+
   private
 
     def setup
