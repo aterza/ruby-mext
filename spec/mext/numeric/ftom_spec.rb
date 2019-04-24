@@ -25,7 +25,7 @@ describe 'Numeric::ftom' do
 
   it 'raises an Exception within ftom if the receiver is negative' do
     Numeric.reset_pitch_fork
-    expect { -128.ftom }.to raise_error(Numeric::NegativeNumeric)
+    expect { -128.ftom }.to raise_error(Mext::NegativeNumeric)
   end
 
 end

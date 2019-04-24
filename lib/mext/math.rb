@@ -5,5 +5,7 @@ module Mext
 end
 
 %w(
+  function
+  line
   expon
 ).each { |f| require File.join(Mext::MATH_PATH, f) }

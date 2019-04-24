@@ -32,7 +32,7 @@ describe 'Numeric::cpspch' do
     Numeric.reset_pitch_fork
     @dataset_negative.each do
       |rp|
-      expect { rp.from.cpspch }.to raise_error(Numeric::NegativeNumeric)
+      expect { rp.from.cpspch }.to raise_error(Mext::NegativeNumeric)
     end
   end
 

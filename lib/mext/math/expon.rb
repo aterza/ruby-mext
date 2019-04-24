@@ -2,9 +2,9 @@ require 'cmath'
 
 module Math
 
-  class Expon
+  class Expon < Function
 
-    attr_reader :y_start, :y_end, :x_start, :x_end, :tau
+    attr_reader :y_start, :y_end, :tau
     attr_reader :a, :b, :c
 
     #
@@ -45,28 +45,6 @@ module Math
     #:nodoc:
     def y(x)
       (CMath::exp(self.a*x + self.b) + self.c).abs   # we want a real number result, no complex please
-    end
-
-    #:doc:
-    #
-    # +xy(step)+
-    #
-    # Returns a full deployment of the function evaluated with a step of
-    # +step+. It is returned in two arrays - one for the +x+ values and the
-    # other for the +y+ values.
-    #
-    # This method is mainly for testing purposes with the dataxy method of +gruff+ 
-    #
-    #:nodoc:
-    def xy(s)
-      resx = []
-      resy = []
-      self.x_start.step(x_end, s) do
-        |x|
-        resx << x
-        resy << self.y(x)
-      end
-      [resx, resy]
     end
 
   private

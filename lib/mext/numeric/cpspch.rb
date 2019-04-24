@@ -8,7 +8,7 @@ class Numeric
   #:nodoc:
 
   def cpspch
-    raise NegativeNumeric if self <= 0.0
+    raise Mext::NegativeNumeric if self <= 0.0
 
     midi_note = self.ftom
 

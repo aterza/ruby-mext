@@ -23,7 +23,7 @@ describe 'Numeric::ampdb' do
 
   it 'raises an Exception within ampdb if the receiver is negative' do
     Numeric.reset_pitch_fork
-    expect { -128.ampdb }.to raise_error(Numeric::NegativeNumeric)
+    expect { -128.ampdb }.to raise_error(Mext::NegativeNumeric)
   end
 
 end

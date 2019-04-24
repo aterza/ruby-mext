@@ -6,7 +6,7 @@ class Numeric
   # interprets its receiver as a linear value and returns it in dB
   #
   def ampdb
-    raise NegativeNumeric if self < 0.0
+    raise Mext::NegativeNumeric if self < 0.0
     20*Math::log10(self)
   end
 

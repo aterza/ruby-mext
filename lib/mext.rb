@@ -5,6 +5,7 @@ module Mext
 end
 
 %w(
+  exceptions
   numeric
   array
   math

@@ -5,7 +5,6 @@ module Mext
 end
 
 %w(
-  exceptions
   pitch_fork
   mtof
   ftom
