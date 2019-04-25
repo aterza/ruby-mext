@@ -5,6 +5,11 @@ describe Math::Function do
   it 'cannot be created (pure abstract class)' do
     expect { Math::Function.new }.to raise_error(Mext::PureAbstractMethodCalled)
   end
+  
+  it 'cannot be created (pure abstract class) even through the :from_yaml method' do
+    expect { Math::Function.from_yaml(nil) }.to raise_error(Mext::PureAbstractMethodCalled)
+  end
+  
 
   #
   # fake concrete function

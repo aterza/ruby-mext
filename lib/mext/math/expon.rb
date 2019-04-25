@@ -51,6 +51,27 @@ module Math
       "tau: #{self.tau}"
     end
 
+    class << self
+
+      #
+      # +from_yaml(yaml_hash)+:
+      #
+      # creates a Math::Expon class from a yaml file which must have the
+      # relevant fields:
+      #
+      # +x_start+
+      # +x_end+
+      # +y_start+
+      # +y_end+
+      # +tau+
+      #
+      def from_yaml(yh)
+        args = [yh['y_start'], yh['y_end'], yh['x_start'], yh['x_end'], yh['tau']]
+        new(*args)
+      end
+
+    end
+
   private
 
     def setup
@@ -62,7 +83,6 @@ module Math
 
        @a = (CMath::log(exp_ev) - CMath::log(exp_sv)) / x_length;
        @b= CMath::log(exp_sv) - (self.a * x_start);
-
     end
 
   end

@@ -55,6 +55,14 @@ module Math
       ''
     end
 
+    class << self
+
+      def from_yaml(yh)
+        new
+      end
+
+    end
+
   private
 
     def setup

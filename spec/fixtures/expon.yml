@@ -1,0 +1,8 @@
+#
+# This is used to test the from_yaml class method of Math::Expon
+#
+x_start: 10
+x_end:  100
+y_start: 10
+y_end:    1
+tau:  0.001

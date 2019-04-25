@@ -42,6 +42,26 @@ module Math
       "a: #{self.a}\nb: #{self.b}"
     end
 
+    class << self
+
+      #
+      # +from_yaml(yaml_hash)+:
+      #
+      # creates a Math::Line class from a yaml file which must have the
+      # relevant fields:
+      #
+      # +x_start+
+      # +x_end+
+      # +y_start+
+      # +y_end+
+      #
+      def from_yaml(yh)
+        args = [yh['y_start'], yh['y_end'], yh['x_start'], yh['x_end']]
+        new(*args)
+      end
+
+    end
+
   private
 
     def setup
