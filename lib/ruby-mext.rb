@@ -7,5 +7,6 @@ module Mext
 end
 
 %w(
+  ruby
   mext
 ).each { |f| require File.join(Mext::ROOT, f) }
