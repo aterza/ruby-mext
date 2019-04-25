@@ -13,25 +13,25 @@ class MethodedHash < Hash
 private
 
   def duplicate_hash(arg)
-    arg.keys.each { |k| self[k] = arg[k].dup }
+    arg.each do
+      |k, v|
+      self[k] = arg[k].dup
+      self[k] = self.class.new(v) if v.kind_of?(Hash)
+    end
   end
 
   def common_methodizer(k)
-    self.class.methodize(k)
+    methodize(k)
   end
 
-  class << self
+  def methodize(key)
+    nk = normalize_key(key)
+    define_singleton_method(nk) { self[key] }
+  end
 
-    def methodize(key)
-      nk = normalize_key(key)
-      define_method(nk) { self[key] }
-    end
-  
-    def normalize_key(key)
-      ek = key.to_s.gsub(/\W/, '_')
-      ek.to_sym
-    end
-
+  def normalize_key(key)
+    ek = key.to_s.gsub(/\W/, '_')
+    ek.to_sym
   end
 
 end
