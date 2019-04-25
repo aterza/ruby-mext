@@ -15,4 +15,5 @@ end
   cpspch
   pchcps
   rrand
+  gold
 ).each { |f| require File.join(Mext::NUMERIC_PATH, f) }
