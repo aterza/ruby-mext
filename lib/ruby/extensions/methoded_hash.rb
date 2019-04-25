@@ -16,7 +16,14 @@ private
     arg.each do
       |k, v|
       self[k] = arg[k].dup
-      self[k] = self.class.new(v) if v.kind_of?(Hash)
+      #
+      # we want to replicate MethodedHashes all along but we cannot use the
+      # self.class.new(...) construct because it may create a subclass and
+      # the result might not be what we want. So we define a protected class
+      # method that will force-create a MethodedHash class (and that can be
+      # overridden when needed)
+      #
+      self[k] = self.class.create(v) if v.kind_of?(Hash)
     end
   end
 
@@ -32,6 +39,23 @@ private
   def normalize_key(key)
     ek = key.to_s.gsub(/\W/, '_')
     ek.to_sym
+  end
+
+protected
+
+  class << self
+
+    #
+    # +create(h = {})+
+    #
+    # +create+ force-creates a MethodedHash class, avoiding potential
+    # conflicts with children classes. However it can be overridden by
+    # children classes if needed.
+    #
+    def create(h = {})
+      MethodedHash.new(h)
+    end
+
   end
 
 end

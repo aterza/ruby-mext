@@ -1,0 +1,9 @@
+#
+# This is to check that the MethodedHash works also when subclassing
+#
+a:
+  b:
+    c:
+      d: 1
+      e: 2
+      f: 3

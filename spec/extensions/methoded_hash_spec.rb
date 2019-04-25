@@ -1,11 +1,13 @@
 require 'spec_helper'
+require 'yaml'
 
 RSpec.describe MethodedHash do
 
   before :example do
     @args = { 'one' => 1, 'two' => 2, 'three' => 3 }
     @weird_keys = { 'w? 1!' => 'w__1_', 'w/\^&2' => 'w____2', 'w$@:"|;.3' => 'w_______3' }
-    @nested_keys = { :a => { :b => { :c => { :d => 0, :e => 1, :f => 2 }}}}
+    @nested_keys = { :a => { :b => { 'c' => { :d => 0, 'e' => 1, :f => 2 }}}}
+    @mh_metafile = File.expand_path(File.join(['..'] * 2, 'fixtures', 'methoded_hash_stuff.yml'), __FILE__)
   end
 
   it 'can be created without arguments' do
@@ -32,7 +34,7 @@ RSpec.describe MethodedHash do
   end
 
   def check_nested_values(mh, parent)
-    expect(mh.class).to be MethodedHash
+    expect(mh.kind_of?(MethodedHash)).to be true
     mh.each do
       |key, value|
       expect(mh.respond_to?(key)).to(be(true), key.to_s)
@@ -49,6 +51,24 @@ RSpec.describe MethodedHash do
 
   it 'creates methoded hashes iteratively' do
     expect(m = MethodedHash.new(@nested_keys)).not_to be nil
+    check_nested_values(m, nil)
+  end
+
+  #
+  # We need to check that this works even when it is subclassed
+  #
+  class Child < MethodedHash
+
+    def initialize(mf)
+      super(YAML.load(File.open(mf, 'r')))
+    end
+
+  end
+
+  it 'works even when subclassed' do
+    expect(m = Child.new(@mh_metafile)).not_to be nil
+    expect(m.kind_of?(MethodedHash)).to be true
+    expect(m.kind_of?(Hash)).to be true
     check_nested_values(m, nil)
   end
   
