@@ -1,19 +1,25 @@
 module Mext
+  module Numeric
 
-  NUMERIC_PATH = File.join(Mext::PATH, 'numeric')
+    PATH = File.join(Mext::PATH, 'numeric')
+    VECTORIZABLE_METHODS = %w(
+      mtof
+      ftom
+      ampdb
+      dbamp
+      pchtom
+      mtopch
+      cpspch
+      pchcps
+      gold
+      rrand
+    )
+    NON_VECTORIZABLE_METHODS = %w(
+      pitch_fork
+    )
+    ADDED_METHODS = NON_VECTORIZABLE_METHODS + VECTORIZABLE_METHODS
 
+  end
 end
 
-%w(
-  pitch_fork
-  mtof
-  ftom
-  ampdb
-  dbamp
-  pchtom
-  mtopch
-  cpspch
-  pchcps
-  rrand
-  gold
-).each { |f| require File.join(Mext::NUMERIC_PATH, f) }
+Mext::Numeric::ADDED_METHODS.each { |f| require File.join(Mext::Numeric::PATH, f) }

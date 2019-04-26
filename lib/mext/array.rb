@@ -5,5 +5,6 @@ module Mext
 end
 
 %w(
+  vectorize
   choose
 ).each { |f| require File.join(Mext::ARRAY_PATH, f) }

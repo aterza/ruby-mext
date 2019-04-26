@@ -8,11 +8,22 @@ describe 'Numeric::rrand' do
   end
 
   it 'has a rrand method that works for float values' do
-    Numeric.reset_pitch_fork
     @dataset.each do
       |lower, upper|
       expect((res = lower.rrand(upper)).is_a?(Float)).to be true
       expect(res).to(be_between(lower, upper), "#{res} not between #{lower} and #{upper}")
+    end
+  end
+
+  it 'does work with no argument (i.e. with a default)' do
+    @dataset.each do
+      |lower, upper|
+      expect((res = lower.to_f.rrand).is_a?(Float)).to be true
+      if lower >= 0
+        expect(res).to(be_between(0, lower), "#{res} not between 0.0 and #{lower}")
+      else
+        expect(res).to(be_between(lower, 0), "#{res} not between #{lower} and 0.0")
+      end
     end
   end
 
@@ -40,6 +51,18 @@ describe 'Integer::rrand' do
       |lower, upper|
       expect((res = lower.rrand(upper)).is_a?(Float)).to be true
       expect(res).to(be_between(lower, upper), "#{res} not between #{lower} and #{upper}")
+    end
+  end
+
+  it 'does work with no argument (i.e. with a default)' do
+    @dataset.each do
+      |lower, upper|
+      expect((res = lower.rrand).is_a?(Integer)).to be true
+      if lower >= 0
+        expect(res).to(be_between(0, lower), "#{res} not between 0 and #{lower}")
+      else
+        expect(res).to(be_between(lower, 0), "#{res} not between #{lower} and 0")
+      end
     end
   end
 

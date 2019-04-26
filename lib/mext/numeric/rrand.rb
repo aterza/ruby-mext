@@ -1,7 +1,7 @@
 class Numeric
 
   #
-  # +rrand(upper)+: random number generator
+  # +rrand(upper = 0)+: random number generator
   #
   # returns a random number in the range receiver-upper bound
   # 
@@ -13,7 +13,7 @@ class Numeric
   #
   #:nodoc:
 
-  def rrand(upper)
+  def rrand(upper = 0.0)
     lobound = self.to_f
     rng = upper.to_f - lobound
 
@@ -24,7 +24,7 @@ end
 
 class Integer
 
-  def rrand(upper)
+  def rrand(upper = 0)
     res = super(upper)
     upper.is_a?(Integer) ? res.round : res
   end
