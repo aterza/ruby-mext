@@ -1,0 +1,4 @@
+#
+# This is used to test the from_yaml class method of Math::Stepwise
+#
+values: [ [0, 0], [1, 1], [2, 2.5], [3, -7.5], [4, 12.4] ]

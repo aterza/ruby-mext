@@ -1,6 +1,6 @@
 
 desc 'plot all plots'
-task :plot => ['plot:expon', 'plot:line']
+task :plot => ['plot:expon', 'plot:line', 'plot:stepwise']
 
 namespace :plot do
 

@@ -8,4 +8,5 @@ end
   function
   line
   expon
+  stepwise
 ).each { |f| require File.join(Mext::MATH_PATH, f) }
