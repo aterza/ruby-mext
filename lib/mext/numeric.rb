@@ -13,6 +13,7 @@ module Mext
       pchcps
       gold
       rrand
+      mmtot
     )
     NON_VECTORIZABLE_METHODS = %w(
       pitch_fork
