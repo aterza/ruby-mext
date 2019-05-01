@@ -9,4 +9,5 @@ end
   numeric
   array
   math
+  music
 ).each { |f| require File.join(Mext::PATH, f) }
