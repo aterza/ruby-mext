@@ -6,9 +6,6 @@ class Numeric
   # interprets its receiver as a pitch class and returns its corresponing MIDI note
   #
   #:nodoc:
-  MIDI_MIDDLE_C = 60
-  PITCH_MIDDLE_C = 8.0
-  CHROMATIC_NOTES_PER_OCTAVE = 12.0
 
   def pchtom
     p_octave = self.to_i

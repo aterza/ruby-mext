@@ -16,6 +16,7 @@ module Mext
       mmtot
     )
     NON_VECTORIZABLE_METHODS = %w(
+      constants
       pitch_fork
     )
     ADDED_METHODS = NON_VECTORIZABLE_METHODS + VECTORIZABLE_METHODS

@@ -14,6 +14,8 @@ describe 'Numeric::pchcps' do
       NumericTester.new(-1.0, 0.5109874322277317),
       NumericTester.new(-12.0, 0.0002495055821424471),
       NumericTester.new(-18.0, 3.898524720975736e-06),
+      NumericTester.new(0.01, 1.0827446522534065),
+      NumericTester.new(-0.01, 0.9646158227658674),
     ]
   end
 
@@ -22,6 +24,14 @@ describe 'Numeric::pchcps' do
     @dataset_positive.each do
       |rp|
       expect(rp.from.pchcps).to(be_within(@eps).of(rp.to), "#{rp.from.pchcps} != #{rp.to}")
+    end
+  end
+
+  it 'has a pchcps method that is completely symmetrical with the cpspch one' do
+    Numeric.reset_pitch_fork
+    @dataset_positive.each do
+      |rp|
+      expect(rp.from.pchcps.cpspch).to(be_within(@eps).of(rp.from), "#{rp.from.pchcps.cpspch} != #{rp.from}")
     end
   end
 

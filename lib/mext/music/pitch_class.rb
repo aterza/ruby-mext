@@ -6,15 +6,19 @@ module Mext
       attr_reader :octave, :semi
   
       #
-      # +Mext::Music::PitchClass.new(float_value):
+      # +Mext::Music::PitchClass.new(float_value, semi = nil)+:
       #
       # pitch class object, where argument is:
       #
       # +float_value+: a pitch class in float notation (i.e. 8.00 for middle C, etc.)
+      #                +or+ an octave value when given in octave, semi pair (see below)
+      # +semi+: (optional) when this argument is not nil, then it is assumed
+      #         that the first argument is the octave, and this one is the
+      #         semitone value
       #
       #:nodoc:
-      def initialize(fv)
-        setup(fv)
+      def initialize(fv, semi = nil)
+        semi ? setup_with_two_arguments(fv, semi) : setup_with_one_argument(fv)
       end
   
       #:doc:
@@ -29,7 +33,7 @@ module Mext
         # we suppose here that the pitch_class data is well-formed inside the
         # object
         #
-        self.octave + (self.semi / 100.0)
+        self.octave + (self.semi / ::Numeric::PCC)
       end
   
       #:doc:
@@ -59,11 +63,14 @@ module Mext
       # +\+(other)+ (operator plus)
       #
       # sums two pitch classes
-      # 
       #
       #:nodoc:
       def +(other)
-        PitchClass.new((self.to_freq + other.to_freq).cpspch)
+        octave = (self.to_semitones + other.to_semitones) / 12.0
+        octave = octave >= 0.0 ? octave.floor : octave.ceil
+        semis  = (self.to_semitones + other.to_semitones) % 12.0
+        phase  = octave >= 0.0 ? 1 : -1
+        PitchClass.new(octave, phase*semis)
       end
 
       #:doc:
@@ -75,7 +82,8 @@ module Mext
       #
       #:nodoc:
       def -(other)
-        PitchClass.new((self.to_freq - other.to_freq).cpspch)
+        tot_semi = self.to_semitones - other.to_semitones
+        PitchClass.new(0.0, tot_semi)
       end
 
       #:doc:
@@ -100,6 +108,17 @@ module Mext
         other.to_semitones - self.to_semitones
       end
 
+      #:doc:
+      #
+      # +transpose(semitones)+
+      #
+      # returns the transposition in semitones
+      #
+      #:nodoc:
+      def transpose(semi)
+        self + PitchClass.new(0.0, semi)
+      end
+
       class << self
   
         #:doc:
@@ -117,13 +136,38 @@ module Mext
   
     private
   
-      def setup(fval)
-        @octave = fval.floor
-        s = (fval-@octave) * 100.0
-        @octave += (s/12.0).floor
-        @semi = s % 12.0
+      def setup_with_one_argument(fval)
+        (o, s) = separate_oct_semi(fval)
+        setup_with_two_arguments(o, s)
       end
-  
+
+      def separate_oct_semi(fval)
+        octave = fval >= 0.0 ? fval.floor : fval.ceil
+        s = (fval-octave) * ::Numeric::PCC
+        [octave, s]
+      end
+
+      #
+      # +setup_with_two_arguments(oct, semi)+:
+      #
+      # we must make sure that the two values are congruent, that is:
+      # +oct+ is a float number and +semi+ is between 0..11.999999
+      # taking into account that pitch classes can be positive or negative
+      #
+      def setup_with_two_arguments(oct, s)
+        octsemi = (s / 12.0)
+        octsemi = case
+                  when octsemi > 0.0 then octsemi.floor
+                  when octsemi < 0.0 then octsemi.ceil
+                  when octsemi == 0.0 then 0.0
+                  end
+        oct += octsemi
+        remainder = s >= 0.0 ? (s % 12.0) : (s % -12.0)
+        @octave = oct
+        @semi = remainder
+        self
+      end
+
     end
 
   end
