@@ -10,13 +10,7 @@ class Numeric
 
   def mtopch
 
-    semi = (self - ZMP) / CNPO  
-    oct  = semi.to_i
-    semi = (semi - oct) * CNPO
-    semi %= CNPO
-    semi = (self > ZMP) ? semi : -((CNPO - semi) % CNPO)
-
-    oct + (semi / PCC)
+    (self - ZMP).semitopch
 
   end
 
