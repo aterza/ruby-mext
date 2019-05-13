@@ -3,12 +3,15 @@ module Mext
 
     PATH = File.join(Mext::PATH, 'numeric')
     VECTORIZABLE_METHODS = %w(
+      cround
       mtof
       ftom
       ampdb
       dbamp
       pchtom
       mtopch
+      pchtosemi
+      semitopch
       cpspch
       pchcps
       gold
@@ -18,6 +21,7 @@ module Mext
     NON_VECTORIZABLE_METHODS = %w(
       constants
       pitch_fork
+      pchtocommon
     )
     ADDED_METHODS = NON_VECTORIZABLE_METHODS + VECTORIZABLE_METHODS
 
