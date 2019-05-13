@@ -8,10 +8,11 @@ module Mext
       ftom
       ampdb
       dbamp
-      pchtom
-      mtopch
+      pchtooctsemi
       pchtosemi
       semitopch
+      pchtom
+      mtopch
       cpspch
       pchcps
       gold
