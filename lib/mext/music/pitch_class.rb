@@ -66,9 +66,9 @@ module Mext
       #
       #:nodoc:
       def +(other)
-        octave = (self.to_semitones + other.to_semitones) / 12.0
+        octave = ((self.to_semitones + other.to_semitones) / 12.0).cround
         octave = octave >= 0.0 ? octave.floor : octave.ceil
-        semis  = (self.to_semitones + other.to_semitones) % 12.0
+        semis  = (self.to_semitones + other.to_semitones).cround % 12.0
         phase  = octave >= 0.0 ? 1 : -1
         PitchClass.new(octave, phase*semis)
       end
@@ -93,7 +93,7 @@ module Mext
       # returns the +PitchClass+ to a number of semitones
       #
       def to_semitones
-        (self.octave * 12.0) + self.semi
+        self.to_f.pchtosemi
       end
   
       #:doc:
@@ -119,6 +119,19 @@ module Mext
         self + PitchClass.new(0.0, semi)
       end
 
+      #:doc:
+      #
+      # +interval_proportion(prop, other)+:
+      #
+      # returns the interval proportion (in semitones) given
+      #
+      # - +prop+: a proportional factor (should be in the range 0-1)
+      # - +other+: the other pitch
+      #
+      def interval_proportion(prop, other)
+        self.interval(other) * prop
+      end
+
       class << self
   
         #:doc:
@@ -135,6 +148,10 @@ module Mext
       end
   
     private
+
+      def setup_with_one_semitone_argument(semival)
+        setup_with_one_argument(semival.semitopch)
+      end
   
       def setup_with_one_argument(fval)
         (o, s) = separate_oct_semi(fval)

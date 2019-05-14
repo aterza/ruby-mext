@@ -137,7 +137,7 @@ describe Mext::Music::PitchClass do
     end
   end
 
-  it 'has a :+ method that works' do
+  it 'has a :+ method that works with other pitch classes' do
     @dataset.each do
        |rpc|
        expect((mpc = Mext::Music::PitchClass.new(rpc.float_value))).not_to be nil
@@ -151,6 +151,26 @@ describe Mext::Music::PitchClass do
          should_be = shoct >= 0.0 ? (shoct + shremh) : (shoct - shremh)
          expect((smpc = mpc + ompc)).not_to be nil
          expect((result = smpc.to_f)).to(be_within(@eps).of(should_be), "#{result} != #{should_be} for #{rpc.correct_float_value} + #{opc.correct_float_value}")
+       end
+    end
+  end
+  #
+  # now let's try adding only semitones
+  #
+  it 'has a :+ method that works with semitones' do
+    @dataset.each do
+       |rpc|
+       expect((mpc = Mext::Music::PitchClass.new(rpc.float_value))).not_to be nil
+       -180.0.step(180.0, 0.01).each do
+         |semi|
+         expect((ompc = Mext::Music::PitchClass.new(0.0, semi))).not_to be nil
+         shoct = ((rpc.semitones + semi) / 12.0)
+         shoct = shoct >= 0.0 ? shoct.floor : shoct.ceil
+         shrem = (rpc.semitones + semi) % 12.0
+         shremh = (shrem/100.0)
+         should_be = shoct >= 0.0 ? (shoct + shremh) : (shoct - shremh)
+         expect((smpc = mpc + ompc)).not_to be nil
+         expect((result = smpc.to_f)).to(be_within(@eps).of(should_be), "#{result} != #{should_be} for #{rpc.correct_float_value} + #{ompc.to_f}")
        end
     end
   end
@@ -226,6 +246,24 @@ describe Mext::Music::PitchClass do
          should_be = mpc + Mext::Music::PitchClass.new(0.0 + semi/100.0)
          result = mpc.transpose(semi)
          expect(result.to_f).to(be_within(@eps).of(should_be.to_f), "#{result.to_f} != #{should_be.to_f} for #{mpc.to_f}.transpose(#{semi})")
+       end
+    end
+  end
+
+  it 'has an :interval_proportion method that works' do
+    sz = @dataset.size
+    @dataset.each do
+       |rpct|
+       expect((rpc = Mext::Music::PitchClass.new(rpct.correct_float_value))).not_to be nil
+       -60.upto(60).each do
+         |semi|
+         expect((opc = rpc + Mext::Music::PitchClass.new(0.0, semi))).not_to be nil
+         0.0.step(1, 0.01).each do
+           |ip|
+           should_be = (opc.to_semitones - rpc.to_semitones) * ip
+           result = rpc.interval_proportion(ip, opc)
+           expect(result.to_f).to(be_within(@eps).of(should_be.to_f), "#{result.to_f} != #{should_be.to_f} for #{rpc.to_f}.interval_proportion(#{ip}, #{opc.to_f})")
+         end
        end
     end
   end
